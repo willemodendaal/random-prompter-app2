@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 
 // EDIT HERE
-const rand1 = ['str-6', 'str-5', 'str-6', 'str-5', 'str-6', 'str-5'];
-const rand2 = ['A', 'B', 'C', 'D', 'E'];
-const defaultBpm = 60;
+const DefaultRand1PromptsString = 'string-5, string-6';
+const DefaultRand2PromptsString = 'A, B, C, D, E';
+const DefaultBpm = 60;
 
 //---
 
@@ -19,7 +19,7 @@ function getRandomInt(min, max) {
   return randomInt;
 }
 
-function getRandomPrompt() {
+function getRandomPrompt(rand1, rand2) {
   const r1 = getRandomInt(0, rand1.length - 1);
   const r2 = getRandomInt(0, rand2.length - 1);
 
@@ -29,16 +29,40 @@ function getRandomPrompt() {
   return `${prompt1}  ${prompt2}`;
 }
 
+function promptStringToArray(promptString) {
+  if (promptString === null || promptString === "") {
+    return [];
+  }
+
+  const asArray = promptString
+          .split(",")
+          .map((s) => {
+            return s.trim();
+          });
+
+  return asArray;
+}
+
+// ---------------------------------------
+// ---------------------------------------
 export default function App() {
   const [started, setStarted] = useState(false);
   const [promptToShow, setPromptToShow] = useState("...");
-  const [bpm, setBpm] = useState(defaultBpm);
+  const [bpm, setBpm] = useState(DefaultBpm);
+  const [rand1PromptsString, setRand1PromptsString] = useState(DefaultRand1PromptsString);
+  const [rand2PromptsString, setRand2PromptsString] = useState(DefaultRand2PromptsString);
 
+  // Weird use of 'arr' below. Otherwise React converts my array of strings to a plain string.
+  // No idea why.
+  const [rand1PromptsArray, setRand1PromptsArray] = useState(promptStringToArray(rand1PromptsString));
+  const [rand2PromptsArray, setRand2PromptsArray] = useState(promptStringToArray(rand2PromptsString));
+
+  // Timer
   useEffect(() => {
     if (started) {
       const waitMs = (60 * 1000) / bpm;
       const interval = setInterval(() => {
-        setPromptToShow(getRandomPrompt());
+        setPromptToShow(getRandomPrompt(rand1PromptsArray, rand2PromptsArray));
       }, waitMs);
 
       return () => clearInterval(interval);
@@ -46,7 +70,13 @@ export default function App() {
     else {
       return () => {};
     }
-  }, [started, bpm]);
+  }, [started, bpm, rand1PromptsArray, rand2PromptsArray]);
+
+  //Random prompts arrays.
+  useEffect(() => {
+    setRand1PromptsArray(promptStringToArray(rand1PromptsString));
+    setRand2PromptsArray(promptStringToArray(rand2PromptsString));
+  }, [rand1PromptsString, rand2PromptsString]);
 
   const startStop = () => {
     setStarted(!started);
@@ -64,8 +94,18 @@ export default function App() {
 
   const notStartedView = (
     <View style={styles.container}>
-      <Text style={styles.title}>My random note prompter</Text>
-      <Button onPress={startStop} title="Start..." />
+      <Text style={styles.title}>Random Prompter Tool</Text>
+      <Text style={styles.label}>Show these prompts randomly: (separate using commas)</Text>
+      
+      <View style={styles.checkAndTextbox}>
+        <TextInput value={rand1PromptsString} />
+      </View>
+
+      <View style={styles.checkAndTextbox}>
+        <TextInput value={rand2PromptsString} />
+      </View>
+
+      <Button onPress={startStop} title="Start!" />
       <StatusBar style="auto" />
     </View>
   );
@@ -96,11 +136,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  textAndCheckbox: {
+    flexDirection: 'row'
+  },
   prompt: {
     fontSize: 32
   },
   title: {
     marginBottom: 32
+  },
+  label: {
+    marginBottom: 16
   },
   miscInfo: {
     marginBottom: 8
