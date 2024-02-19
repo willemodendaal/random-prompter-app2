@@ -98,11 +98,11 @@ export default function App() {
       <Text style={styles.label}>Show these prompts randomly: (separate using commas)</Text>
       
       <View style={styles.checkAndTextbox}>
-        <TextInput value={rand1PromptsString} onChangeText={setRand1PromptsString} />
+        <TextInput style={styles.randTextBox} value={rand1PromptsString} onChangeText={setRand1PromptsString} />
       </View>
 
       <View style={styles.checkAndTextbox}>
-        <TextInput value={rand2PromptsString} onChangeText={setRand2PromptsString} />
+        <TextInput style={styles.randTextBox} value={rand2PromptsString} onChangeText={setRand2PromptsString} />
       </View>
 
       <Button onPress={startStop} title="Start!" />
@@ -136,17 +136,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  textAndCheckbox: {
+  checkAndTextbox: {
     flexDirection: 'row'
   },
   prompt: {
     fontSize: 32
   },
   title: {
-    marginBottom: 32
+    marginBottom: 32,
+    color: 'blue',
   },
   label: {
     marginBottom: 16
+  },
+  randTextBox: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderStyle: 'solid'
   },
   miscInfo: {
     marginBottom: 8
