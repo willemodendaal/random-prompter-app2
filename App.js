@@ -4,7 +4,7 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 
 // EDIT HERE
 const DefaultRand1PromptsString = 'string-5, string-6';
-const DefaultRand2PromptsString = 'A, B, C, D, E';
+const DefaultRand2PromptsString = 'A, B, C, D, E, F, G';
 const DefaultBpm = 60;
 
 //---
@@ -98,11 +98,11 @@ export default function App() {
       <Text style={styles.label}>Show these prompts randomly: (separate using commas)</Text>
       
       <View style={styles.checkAndTextbox}>
-        <TextInput value={rand1PromptsString} />
+        <TextInput value={rand1PromptsString} onChangeText={setRand1PromptsString} />
       </View>
 
       <View style={styles.checkAndTextbox}>
-        <TextInput value={rand2PromptsString} />
+        <TextInput value={rand2PromptsString} onChangeText={setRand2PromptsString} />
       </View>
 
       <Button onPress={startStop} title="Start!" />
