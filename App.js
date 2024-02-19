@@ -105,6 +105,11 @@ export default function App() {
         <TextInput style={styles.randTextBox} value={rand2PromptsString} onChangeText={setRand2PromptsString} />
       </View>
 
+      <Text style={styles.label}>Options:</Text>
+      <View style={styles.labelAndConfigOption}>
+        <Text>Bananas</Text>
+      </View>
+
       <Button onPress={startStop} title="Start!" />
       <StatusBar style="auto" />
     </View>
@@ -153,6 +158,11 @@ const styles = StyleSheet.create({
     borderColor: 'grey',
     borderWidth: 1,
     borderStyle: 'solid'
+  },
+  labelAndConfigOption: {
+    '& > div': {
+      color: 'green'
+    }
   },
   miscInfo: {
     marginBottom: 8
