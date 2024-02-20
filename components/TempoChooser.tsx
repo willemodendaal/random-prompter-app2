@@ -11,52 +11,37 @@ export default function TempoChooser({ onTempoChanged, initialValue }
     const [bpmStr, setBpmStr] = useState("" + initialValue);
     const [delaySecondsStr, setDelaySecondsStr] = useState("" + delayMsToDelaySeconds(convertBpmToDelayMs(initialValue)));
 
-    // Use to prevent infinite loop when BPM and DelayMs update one another.
-    const [autoUpdateInProgress, setAutoUpdateInProgress] = useState(false);
-
-    // Bpm changed.
-    useEffect(() => {
-        if (autoUpdateInProgress) {
-            setAutoUpdateInProgress(false);
-            return;
-        }
-        else {
-            setAutoUpdateInProgress(true);
-        }
-
-        const bpm = Number(bpmStr);
+    const onBpmChanged = (newBpmStr: string) => {
+        const bpm = Number(newBpmStr);
+        setBpmStr(newBpmStr);
         setDelaySecondsStr("" + delayMsToDelaySeconds(convertBpmToDelayMs(bpm)));
         onTempoChanged(bpm);
-    }, [bpmStr]);
+    };
 
-    // DelaySeconds changed.
-    useEffect(() => {
-        if (autoUpdateInProgress) {
-            setAutoUpdateInProgress(false);
-            return;
-        }
-        else {
-            setAutoUpdateInProgress(true);
-        }
-
-        const delaySeconds = Number(delaySecondsStr);
+    const onDelaySecondsChanged = (newDelaySeconds: string) => {
+        const delaySeconds = Number(newDelaySeconds);
         const delayMs = delaySeconds * 1000;
-        setBpmStr("" + convertDelayMsToBpm(delayMs));
-    }, [delaySecondsStr]);
+        setDelaySecondsStr(newDelaySeconds);
+
+        const newBpm = convertDelayMsToBpm(delayMs);
+        setBpmStr("" + newBpm);
+        onTempoChanged(newBpm);
+    };
+
 
     return (
         <View style={styles.container}>
             <View style={styles.labelAndConfigOption}>
                 <Text style={styles.labelAndConfigOption_label}>BPM:</Text>
                 <TextInput
-                    onChangeText={setBpmStr}
+                    onChangeText={onBpmChanged}
                     style={styles.labelAndConfigOption_input}
                     value={bpmStr}></TextInput>
             </View>
             <View style={styles.labelAndConfigOption}>
                 <Text style={styles.labelAndConfigOption_label}>Nr seconds between:</Text>
                 <TextInput
-                    onChangeText={setDelaySecondsStr}
+                    onChangeText={onDelaySecondsChanged}
                     style={styles.labelAndConfigOption_input}
                     value={delaySecondsStr}></TextInput>
             </View>
