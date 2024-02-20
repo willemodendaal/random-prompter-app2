@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 
+import TempoChooser from './components/TempoChooser';
+
 // EDIT HERE
 const DefaultRand1PromptsString = 'string-5, string-6';
 const DefaultRand2PromptsString = 'A, B, C, D, E, F, G';
@@ -106,10 +108,7 @@ export default function App() {
       </View>
 
       <Text style={styles.label}>Options:</Text>
-      <View style={styles.labelAndConfigOption}>
-        <Text style={styles.labelAndConfigOption_label}>Bananas</Text>
-        <TextInput style={styles.labelAndConfigOption_input}></TextInput>
-      </View>
+      <TempoChooser onTempoChanged={setBpm} initialValue={bpm}></TempoChooser>
 
       <Button onPress={startStop} title="Start!" />
       <StatusBar style="auto" />
