@@ -107,7 +107,8 @@ export default function App() {
 
       <Text style={styles.label}>Options:</Text>
       <View style={styles.labelAndConfigOption}>
-        <Text>Bananas</Text>
+        <Text style={styles.labelAndConfigOption_label}>Bananas</Text>
+        <TextInput style={styles.labelAndConfigOption_input}></TextInput>
       </View>
 
       <Button onPress={startStop} title="Start!" />
@@ -160,9 +161,17 @@ const styles = StyleSheet.create({
     borderStyle: 'solid'
   },
   labelAndConfigOption: {
-    '& > div': {
-      color: 'green'
-    }
+    display: 'flex',
+    flexDirection: 'row',
+  },
+  labelAndConfigOption_label: {
+    flexGrow: 0.5
+  },
+  labelAndConfigOption_input: {
+    flexGrow: 1,
+    borderColor: 'grey',
+    borderWidth: 1,
+    borderStyle: 'solid'
   },
   miscInfo: {
     marginBottom: 8
