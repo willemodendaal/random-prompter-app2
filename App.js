@@ -5,7 +5,7 @@ import { StyleSheet, Text, TextInput, View, Button } from 'react-native';
 import TempoChooser from './components/TempoChooser';
 
 // EDIT HERE
-const DefaultRand1PromptsString = 'string-5, string-6';
+const DefaultRand1PromptsString = 'string-5, string-6'; 
 const DefaultRand2PromptsString = 'A, B, C, D, E, F, G';
 const DefaultBpm = 60;
 

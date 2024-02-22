@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { convertBpmToDelayMs, convertDelayMsToBpm } from '../domain/BpmToTempoConverter';
 
+import MyCheckBox from "./MyCheckBox";
+
 const MaxDelaySeconds = 60 * 60; // 60 minutes, seems like a more than reasonable max.
 const MaxBpm = 1000;  // Every 30ms. Good enough.
 
@@ -37,6 +39,13 @@ function isValidBpm(newBpmStr: string) {
     };
 }
 
+enum KindOfTiming {
+    Bpm,
+    DelaySeconds
+}
+
+// -----------------
+// -----------------
 export default function TempoChooser({ onTempoChanged, initialValue }
     : { onTempoChanged: (newVal: number) => void, initialValue: number }) {
     const [bpmStr, setBpmStr] = useState("" + initialValue);
@@ -79,9 +88,20 @@ export default function TempoChooser({ onTempoChanged, initialValue }
         }
     };
 
+    const onChangeMainOption = (kindOfTiming: KindOfTiming) : void => {
+    }
 
     return (
         <View style={styles.container}>
+            <View>
+                <Text>Show a prompt...</Text>
+                <MyCheckBox 
+                    label="After every 'N' number of secondsssss" 
+                    onValueChanged={() => onChangeMainOption(KindOfTiming.Bpm)} initialValue={true}></MyCheckBox>
+                <MyCheckBox 
+                    label="A number of times per minute" 
+                    onValueChanged={() => onChangeMainOption(KindOfTiming.DelaySeconds)} initialValue={true}></MyCheckBox>
+            </View>
             <View style={styles.labelAndConfigOption}>
                 <Text style={styles.labelAndConfigOption_label}>BPM:</Text>
                 <TextInput
