@@ -15,13 +15,14 @@ export default function MyCheckBox({ label, initialValue, onValueChanged }
         onValueChanged(!isChecked);
     };
 
+    const checkStyle = isChecked ? styles.checked : styles.unchecked;
+
     return (
         <View style={styles.container}>
             <Pressable
                 style={styles.button}
                 onPress={onButtonPress}>
-                <Text>
-                    {isChecked ? 'Checked' : 'Unchecked'}
+                <Text style={checkStyle}>
                 </Text>
             </Pressable>
             <Text style={styles.label}>{label}</Text>
@@ -30,15 +31,28 @@ export default function MyCheckBox({ label, initialValue, onValueChanged }
 
 const styles = StyleSheet.create({
     container: {
-        display: 'flex',
         flexDirection: 'row',
-        borderWidth: 3,
-        borderColor: 'red'
+        alignItems: 'center'
     },
     button: {
         flexGrow: 0,
     },
     label: {
         flexGrow: 1,
+        marginLeft: 8
+    },
+    checked: {
+        borderWidth: 2,
+        borderColor: '#999',
+        borderRadius: 4,
+        width: 30,
+        height: 30
+    },
+    unchecked: {
+        borderWidth: 2,
+        borderColor: 'blue',
+        borderRadius: 4,
+        width: 30,
+        height: 30
     }
 });

@@ -88,33 +88,37 @@ export default function TempoChooser({ onTempoChanged, initialValue }
         }
     };
 
-    const onChangeMainOption = (kindOfTiming: KindOfTiming) : void => {
+    const onChangeMainOption = (kindOfTiming: KindOfTiming): void => {
     }
 
     return (
         <View style={styles.container}>
             <View>
-                <Text>Show a prompt...</Text>
-                <MyCheckBox 
-                    label="After every 'N' number of secondsssss" 
-                    onValueChanged={() => onChangeMainOption(KindOfTiming.Bpm)} initialValue={true}></MyCheckBox>
-                <MyCheckBox 
-                    label="A number of times per minute" 
-                    onValueChanged={() => onChangeMainOption(KindOfTiming.DelaySeconds)} initialValue={true}></MyCheckBox>
-            </View>
-            <View style={styles.labelAndConfigOption}>
-                <Text style={styles.labelAndConfigOption_label}>BPM:</Text>
-                <TextInput
-                    onChangeText={onBpmChanged}
-                    style={styles.labelAndConfigOption_input}
-                    value={bpmStr}></TextInput>
-            </View>
-            <View style={styles.labelAndConfigOption}>
-                <Text style={styles.labelAndConfigOption_label}>Nr seconds between:</Text>
-                <TextInput
-                    onChangeText={onDelaySecondsChanged}
-                    style={styles.labelAndConfigOption_input}
-                    value={delaySecondsStr}></TextInput>
+                <Text>Show a random prompt...</Text>
+                <View style={styles.row}>
+                    <MyCheckBox
+                        label=""
+                        onValueChanged={() => onChangeMainOption(KindOfTiming.DelaySeconds)} initialValue={true}></MyCheckBox>
+
+                    <Text style={styles.label}>Every </Text>
+                    <TextInput
+                        onChangeText={onDelaySecondsChanged}
+                        style={styles.input}
+                        value={delaySecondsStr}></TextInput>
+                    <Text style={styles.label}> seconds.</Text>
+                </View>
+                <View style={styles.row}>
+                    <MyCheckBox
+                        label=""
+                        onValueChanged={() => onChangeMainOption(KindOfTiming.Bpm)} initialValue={true}></MyCheckBox>
+
+                    <TextInput
+                        onChangeText={onBpmChanged}
+                        style={styles.input}
+                        value={bpmStr}></TextInput>
+                    <Text style={styles.label}> times per minute.</Text>
+
+                </View>
             </View>
         </View>
     );
@@ -123,21 +127,26 @@ export default function TempoChooser({ onTempoChanged, initialValue }
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        width: '100%'
+        width: '100%',
+        alignItems: 'center',
+    },
+    row: {
+        flexDirection: 'row',
+        marginBottom: 4
     },
     labelAndConfigOption: {
         display: 'flex',
         flexDirection: 'row',
     },
-    labelAndConfigOption_label: {
-        flexGrow: 0.5,
-        textAlign: 'right'
+    label: {
+        height: 30,
+        textAlignVertical: 'center',
     },
-    labelAndConfigOption_input: {
-        flexGrow: 1,
+    input: {
         borderColor: 'grey',
         borderWidth: 1,
-        borderStyle: 'solid'
+        borderStyle: 'solid',
+        paddingHorizontal: 4
     },
 });
 
