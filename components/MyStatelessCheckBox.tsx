@@ -1,28 +1,26 @@
 import { useState } from "react";
 import { Pressable, StyleSheet, View, Text } from "react-native";
+import { Ionicons } from '@expo/vector-icons';
 
-export default function MyCheckBox({ label, initialValue, onValueChanged }
+export default function MyStatelessCheckBox({ label, value, onValueChanged }
     : {
         label: string,
-        initialValue: boolean,
+        value: boolean,
         onValueChanged: (newVal: boolean) => void
     }) {
 
-    const [isChecked, setIsChecked] = useState(initialValue);
-
     const onButtonPress = () => {
-        setIsChecked(!isChecked);
-        onValueChanged(!isChecked);
+        onValueChanged(!value);
     };
-
-    const checkStyle = isChecked ? styles.checked : styles.unchecked;
 
     return (
         <View style={styles.container}>
             <Pressable
                 style={styles.button}
                 onPress={onButtonPress}>
-                <Text style={checkStyle}>
+                <Text style={styles.checkBorder}>
+                    {!value && <Ionicons name="square-outline" size={30} color="#333" />}
+                    {value && <Ionicons name="checkbox-outline" size={30} color="#333" />}
                 </Text>
             </Pressable>
             <Text style={styles.label}>{label}</Text>
@@ -41,18 +39,9 @@ const styles = StyleSheet.create({
         flexGrow: 1,
         marginLeft: 8
     },
-    checked: {
-        borderWidth: 2,
-        borderColor: '#999',
-        borderRadius: 4,
+    checkBorder: {
         width: 30,
-        height: 30
+        height: 30,
     },
-    unchecked: {
-        borderWidth: 2,
-        borderColor: 'blue',
-        borderRadius: 4,
-        width: 30,
-        height: 30
-    }
+    
 });
