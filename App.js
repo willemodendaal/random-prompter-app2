@@ -50,6 +50,10 @@ function promptStringToArray(promptString) {
 export default function App() {
   const [started, setStarted] = useState(false);
   const [promptToShow, setPromptToShow] = useState("...");
+  // %%% TODO: Add setTempo here, where we store what we get from the tempo component. (must contain type and value)
+  // then, lower down, add an Effect that detects change to tempo, which updates bpm accordingly.
+  // Then! Make sure that user's choice of tempo isn't lost on Start/Stop.
+  //
   const [bpm, setBpm] = useState(DefaultBpm);
   const [rand1PromptsString, setRand1PromptsString] = useState(DefaultRand1PromptsString);
   const [rand2PromptsString, setRand2PromptsString] = useState(DefaultRand2PromptsString);
