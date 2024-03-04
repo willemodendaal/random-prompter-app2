@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from 'react-native';
-import { convertBpmToDelayMs, convertDelayMsToBpm } from '../domain/BpmToTempoConverter';
+import { convertBpmToDelayMs, convertDelayMsToBpm } from
+'../domain/BpmToTempoConverter';
+import { KindOfTiming } from '../domain/Tempo';
 
 import MyStatelessCheckBox from "./MyStatelessCheckBox";
 
@@ -39,10 +41,6 @@ function isValidBpm(newBpmStr: string) {
     };
 }
 
-enum KindOfTiming {
-    Bpm,
-    DelaySeconds
-}
 
 // -----------------
 // -----------------
