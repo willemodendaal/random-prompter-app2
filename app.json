@@ -3,7 +3,7 @@
     "name": "random-prompter-app",
     "slug": "random-prompter-app",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "__orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
